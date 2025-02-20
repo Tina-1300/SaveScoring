@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+SaveScoring - score
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <table class="table table-bordered mt-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" style="color: blueviolet;">Site</th>
+                    <th scope="col" style="color: blueviolet;">Score</th>
+                    <th scope="col" style="color: blueviolet;">Place</th>
+                    <th scope="col" style="color: blueviolet;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for score in scores  %}
+                <tr>
+                    <td><strong>{{ score.get("Site") }}</strong></td>
+                    <td>{{ score.get("Score") }}</td>
+                    <td>{{ score.get("Place") }}</td>
+                    <td><form action="{{url_for('sync_score')}}" method="post"><input type="hidden" name="site" value="{{ score.get('Site') }}" /><button type="submit" class="btn btn-outline-warning" style="color: black;">Reload</button></form></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <td><form action="{{url_for('all_sync')}}" method="post"><button type="submit" class="btn btn-outline-warning" style="color: black;">Reload All</button></form></td>
+            
+        </table>
+        
+    </div>
+
+</div>
+
+
+{% endblock %}
+

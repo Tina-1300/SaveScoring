@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+SaveScoring - links
+{% endblock %}
+
+{% block content %}
+
+<form action="{{url_for('new_save')}}" method="post"><input type="url" name="url" id="url" placeholder="placer votre url"><input type="text" name="titre" id="titre" placeholder="titre"><input type="text" name="category" id="category"><button type="submit">creat</button></form>
+
+<button type="button" class="btn btn-outline-warning" style="color: black;margin-top: 5%;">Web</button>
+
+
+
+{% endblock %}
