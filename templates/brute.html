@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+SaveScoring - Brute force
+{% endblock %}
+
+{% block content %}
+
+<form action="{{url_for('brute_force')}}" method="post"><input type="text" name="password" id="password" placeholder="password a brute force (md5)"><button type="submit" class="btn btn-outline-warning" style="color: black;">go bruteforce</button></form>
+<br><br><br><br>
+<p>Résultat : {{ found_password }}</p>
+
+
+{% endblock %}

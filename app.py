@@ -6,6 +6,9 @@ from mxbdd import MXDBB
 from crawler import CrawlerRootMe, CrawlerNewbieContest, BaseCrawler
 import json
 import os
+from tasks import BruteForce
+
+
 
 # Scripts\activate
 
@@ -26,11 +29,24 @@ url_root_me = "https://www.root-me.org/Tina-853821"
 url_newbiecontest = "https://www.newbiecontest.org/index.php?page=info_membre&id=98720"
 
 
-app = Flask(__name__)
+app = Flask("tasks")
 app.secret_key = os.getenv("SECRET_KEY")
+#celery -A tasks:app worker --loglevel=INFO -P gevent
 
 
-print(os.getenv("SECRET_KEY"))
+@app.route("/bruteforce_l")
+def bruteforce_l():
+    return render_template("brute.html")
+
+@app.route("/bruteforce", methods=["POST"])
+def brute_force():
+    password_a_tester = request.form.get("password") # hash du mot de passe à tester 
+    for i in range(0, 1000):
+        found_password = BruteForce.delay(password_a_tester, i)
+        if found_password.get() != None:
+            return render_template("brute.html", found_password=found_password.get())
+        
+
 
 
 @app.route("/score")
